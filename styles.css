@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+canvas {
+    border: 3px solid #444;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #333;
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    bottom: auto;
+    color: white;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    border-right: 4px solid #3498db;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    max-width: 250px;
+}
+
+#ui div {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(50, 50, 50, 0.5);
+}
+
+#weapon {
+    border-left: 3px solid #e74c3c;
+}
+
+#shield {
+    border-left: 3px solid #3498db;
+}
+
+#radio {
+    border-left: 3px solid #2ecc71;
+}
+
+#officers {
+    border-left: 3px solid #00f;
+}
+
+#rioters {
+    border-left: 3px solid #f00;
+}
+
+#health {
+    border-left: 3px solid #e74c3c;
+}
+
+#score {
+    border-left: 3px solid #f1c40f;
+}
+
+#grenades {
+    border-left: 3px solid #95a5a6;
+}
+
+#medkits {
+    border-left: 3px solid #2ecc71;
+}
+
+/* Game title */
+body::before {
+    content: "RIOT CONTROL";
+    position: absolute;
+    top: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(0, 0, 255, 0.7);
+    letter-spacing: 3px;
+}
+
+/* Controls info */
+body::after {
+    content: "Controls: WASD/Arrows to move | E for weapons | Y for shield | R for radio | Click to attack";
+    position: absolute;
+    top: 60px;
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+}
+
+/* Death panel styling */
+#deathPanel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    border: 3px solid #e74c3c;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+}
+
+#deathPanel h2 {
+    color: #e74c3c;
+    font-size: 32px;
+    margin: 0 0 20px 0;
+}
+
+#deathPanel button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#deathPanel button:hover {
+    background-color: #c0392b;
+}
+
+/* Health bar styling */
+#health {
+    background: linear-gradient(to right, 
+        rgba(231, 76, 60, 0.3) var(--health-percent), 
+        rgba(0, 0, 0, 0.3) var(--health-percent));
+}
+
+/* Briefing panel styling */
+#briefingPanel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    border: 3px solid #3498db;
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+    max-width: 500px;
+}
+
+#briefingPanel h2 {
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+#briefingPanel .location {
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#briefingPanel button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#briefingPanel button:hover {
+    background-color: #2980b9;
+}
+
+#objective {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #2ecc71;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    animation: fadeInOut 5s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.score-popup {
+    position: absolute;
+    color: #2ecc71;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    pointer-events: none;
+    animation: scoreFloat 1s ease-out forwards;
+    z-index: 1000;
+}
+
+@keyframes scoreFloat {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+}
+
+.score-breakdown {
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.score-breakdown p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #3498db;
+} 
